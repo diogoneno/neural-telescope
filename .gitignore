@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+.env
+
+# Docker
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+
+# AI & Models 
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+*.onnx
+models/
+data/
+datasets/
+outputs/
+logs/
+
+# Proxmox / OS
+.DS_Store

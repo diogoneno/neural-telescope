@@ -1,0 +1,13 @@
+{
+  "source": "Wikidata Query Service (WDQS)",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "retrieved_utc": "2026-01-14T15:05:08Z",
+  "query": "SELECT ?country ?countryLabel ?capital ?capitalLabel WHERE {\n  ?country wdt:P31 wd:Q3624078 .\n  ?country wdt:P36 ?capital .\n\n  # Keep only countries with exactly one distinct capital (avoid multi-capital cases).\n  FILTER NOT EXISTS {\n    ?country wdt:P36 ?capital2 .\n    FILTER(?capital2 != ?capital)\n  }\n\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en,[AUTO_LANGUAGE]\". }\n}\nORDER BY ?countryLabel",
+  "count": 187,
+  "notes": [
+    "Countries = instance of sovereign state (Q3624078)",
+    "Capital property = P36",
+    "Filtered to countries with exactly one distinct capital via FILTER NOT EXISTS",
+    "Labels requested with language fallback via SERVICE wikibase:label"
+  ]
+}

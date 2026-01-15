@@ -1,34 +1,33 @@
 # The Neural Telescope: Interferometric Control of Autonomous Agents
 
-> 
 > Phase 1 (public): measurement + statistical validation • Phase 2 (under review): interlock control + low-latency bridge
 
 ## Overview
 
-The Neural Telescope is a program for interpretability and control of autonomous LLM agents.  
+The Neural Telescope enables interpretability and control of LLM agents.
 It is organized as an interlock: (i) instrument internal state, (ii) transport telemetry, and (iii) enable intervention policies.
 
-This repository is a **grant-review artifact** containing the validated Phase-1 evaluation pipeline and methodology. Full documentation on critical components for Phase-2 technical due diligence is under controlled access.
+This repository is a **grant-review artifact** containing a validated Phase-1 evaluation pipeline on a factual-statement benchmark and the related methodology. Detailed Phase-1 result tables and Phase-2 technical materials are provided under **controlled access**.
 
 ### Terminology (Phase-1 operational meaning)
 
-- **Topological Phase Attribution (TPA):** Layer-resolved probes that quantify the separability of internal representations for distinguishing true from constructed-false statements, ensuring stability across seeds and holdouts.
-- **Phase Drift:** Reproducible changes in probe separability across layers, estimated through layerwise selection and stability.
-- Phase-1 does not claim a token-level "early warning window"; it reports validation-selected layers under controlled evaluation.
+- **Topological Phase Attribution (TPA):**Layer-resolved probes quantify the separability of internal representations to distinguish true from false statements, assessing stability across seeds and holdouts.
+- **Phase Drift:** Reproducible changes in probe separability estimated through layerwise selection.
+- Phase-1 reports validation-selected layers under controlled evaluation, not claiming a token-level “early warning window.”
 
 ## The Architecture: "Neuron-X" Interlock
 
-This repository offers a detailed overview of interlock architecture designed for grant evaluation standards.
+This repository describes an interlock architecture designed for grant evaluation standards:
 
-- **Internal State Instrumentation:** Extracts hidden-state summaries and evaluates candidate discriminators by layer.
-- **Validation Findings:** Phase-1 methodology identifies that validation-selected layers typically concentrate in the mid-to-late transformer blocks (median layer 10 in standard 6B architectures) using last-token pooling.
+- Extract hidden-state summaries and evaluate discriminators by layer.
+- Utilize validation-selected layers within entity/template generalization constraints.
 
-- **Bridge (Shared-Memory Steering Bridge):** A low-latency telemetry transport designed for online policies.  
-  *Phase-2 focus:* deterministic schemas, bounded-latency telemetry, reproducible stream semantics.  
-  *Note:* Implementation and benchmarks for the bridge are not part of this public artifact.
+**Bridge (Shared-Memory Steering Bridge):** A low-latency transport for online policies.
+Phase-2 focus: deterministic schemas, bounded-latency telemetry, reproducible semantics.
+Implementation and benchmarks are excluded from Phase-1.
 
-- **Control Policies:** Logic for gating, damping, or rerouting based on telemetry.  
-  *Phase-2 focus:* policy evaluation with safety constraints and measurable criteria.
+**Control:** policies for gating, damping, or rerouting based on telemetry.  
+Phase-2 focus: policy evaluation with safety constraints and measurable criteria.
 
 ## Benchmarks
 
@@ -36,7 +35,7 @@ This repository offers a detailed overview of interlock architecture designed fo
 
 Phase-1 uses a Wikidata-derived country–capital dataset:
 
-- `capitals_clean.json` — 187 `{city, country}` pairs
+- `capitals_clean.json` — `{city, country}` pairs
 - `capitals_clean.meta.json` — WDQS endpoint, retrieval time, SPARQL query, and filtering notes
   - Source: **Wikidata Query Service (WDQS)**
   - Property: **P36 (capital)**
@@ -45,28 +44,34 @@ Phase-1 uses a Wikidata-derived country–capital dataset:
 
 ### Task construction (controlled factual-statement discrimination)
 
-We generate labeled items using **four paraphrase templates**:
+We generate labeled items using four paraphrase templates:
 
-1) "{city} is the capital of {country}."  
-2) "The capital of {country} is {city}."  
-3) "{city} serves as the capital of {country}."  
+1) "{city} is the capital of {country}."
+2) "The capital of {country} is {city}."
+3) "{city} serves as the capital of {country}."
 4) "In {country}, the capital is {city}."
 
-Binary labels are generated as true vs constructed-false statements through negative sampling (e.g., incorrect city or country) with safeguards against accidental truths.
+Binary labels are created as true versus constructed-false using negative sampling.
+(e.g., incorrect city or country) with safeguards against accidental truths.
 
 ### Holdout design (generalization constraints)
 
-Cities are divided into train, validation, and test sets (entity OOD).  
-Leave-one-template-out: train+val with 3 templates; test on held-out template.
+-Entity OOD: cities split into train, validation, test sets.
+- Leave-one-template-out: train+val with 3 templates; test on held-out template.
 
 ## Statistical Validation
 
-We use nonparametric tests for complex statistics without parametric assumptions.
+We use nonparametric tests for complex statistics.
 
-- **Monte Carlo permutation test (AUROC):** p-values computed with standard +1 correction to prevent zero p-values and maintain calibration.
-- **Sign-flip randomization test (Δ):** paired deltas per city tested with random sign flips.
+- Monte Carlo permutation test (AUROC): p-values calculated using standard +1 correction to avoid zero p-values and ensure calibration.
+- Sign-flip randomization test (Δ): paired deltas per city with random flips.
 
-## Compute / Lab Environment 
+## Phase-1 Results
+
+Phase-1 numeric result tables, run logs, and per-holdout breakdowns are available under **controlled access** for reviewers.
+The public artifact encompasses the complete pipeline, dataset provenance, and methodology needed to reproduce the evaluation.
+
+## Compute / Lab Environment
 
 Primary local environment used during Phase-1 development:
 
@@ -82,28 +87,31 @@ Primary local environment used during Phase-1 development:
 | **Turing** | NVIDIA P100 | Telemetry Core | 12 vCPUs, 32GB RAM | Active (Debian 12.11) |
 | **Bengio** | NVIDIA K2200 | Experimental | 24 vCPUs, 48GB RAM | Active (Debian 12.11) |
 
-## Scope boundaries 
+## Scope boundaries
 
-Phase-1 claims focus on the **controlled benchmark** of true vs constructed-false capital statements under entity/template holdouts. It does **not** claim generalized “hallucination detection," “confidence estimation,” or a token-level lead-time window.
+Phase-1 claims emphasize comparing true and constructed-false capital statements using entity/template holdouts.
+It does not claim generalized “hallucination detection” or token-level guarantees.
 
-Phase-2 work (under review) extends the interlock to: streaming telemetry (bridge) with bounded latency, online policy evaluation (control) under safety constraints, and scaling evaluation to larger agents and benchmarks.
+Phase-2 work (under review) extends interlock to streaming telemetry with bounded latency, online policy evaluation under safety constraints, and scaling for larger agents.
 
 ## Artifact inventory
 
 Public artifacts:
 - `capitals_clean.json`
 - `capitals_clean.meta.json`
+- Phase-1 runner / evaluation code (this repository)
 - `README.md`
 
-Restricted artifacts (Phase-2 due diligence):
-- performance instrumentation details,
-- model-specific evaluation logs (`results.json`),
-- bridge/control implementations and latency benchmarks,
-- extended evaluation suites and scaling runs.
+Controlled-access artifacts:
+- Phase-1 result tables + run logs (per-model/per-seed/per-holdout)
+- performance instrumentation details
+- bridge/control implementations and latency benchmarks
+- extended evaluation suites and scaling runs
 
-## References 
+## References (external)
 
-- WDQS documentation and SPARQL endpoint: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
-- Wikidata Property P36 (capital): https://www.wikidata.org/wiki/Property:P36
-- Phipson & Smyth (Permutation p-values should never be zero): https://www.degruyterbrill.com/document/doi/10.2202/1544-6115.1585/html
-- scikit-learn ROC AUC (`roc_auc_score`): https://sklearn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html
+- WDQS documentation and SPARQL endpoint: [Link]
+- Wikidata Property P36 (capital): [Link]
+- Phipson & Smyth (Permutation p-values should never be zero): [Link]
+- GPT-J-6B model card: [Link]
+- scikit-learn ROC AUC (`roc_auc_score`): [Link]

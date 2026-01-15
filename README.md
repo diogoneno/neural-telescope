@@ -116,8 +116,8 @@ Restricted artifacts (Phase-2 due diligence):
 
 ## References (external)
 
-- WDQS documentation and SPARQL endpoint: [Link]
-- Wikidata Property P36 (capital): [Link]
-- Phipson & Smyth (Permutation p-values should never be zero): [Link]
-- GPT-J-6B model card: [Link]
-- scikit-learn ROC AUC: [Link]
+- WDQS documentation and SPARQL endpoint: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
+- Wikidata Property P36 (capital): https://www.wikidata.org/wiki/Property:P36
+- Phipson & Smyth (Permutation p-values should never be zero): https://www.degruyterbrill.com/document/doi/10.2202/1544-6115.1585/html
+- GPT-J-6B model card: https://huggingface.co/EleutherAI/gpt-j-6B
+- scikit-learn ROC AUC (`roc_auc_score`): https://sklearn.org/stable/modules/generated/sklearn.metrics.roc_auc_score.html

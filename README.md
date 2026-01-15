@@ -67,25 +67,17 @@ We use nonparametric tests for complex statistics without parametric assumptions
 - Monte Carlo permutation test (AUROC): p-values computed with standard +1 correction to prevent zero p-values and maintain calibration.
 - Sign-flip randomization test (Δ): paired deltas per city tested with random sign flips.
 
-## Results Snapshot (Phase-1 artifact)
+## Phase-1 Results (highlights)
 
-Model: **EleutherAI/gpt-j-6B**  
-Runs: **20** (seeds 0–4 × template holdouts 0–3)  
-Metric: test **AUROC** (ROC AUC), plus paired entity metrics and randomization tests.
+Source artifact: `artifacts/neuronx_paper_grade_multiseed_holdout_v2.json`.
 
-Aggregated across the 20 recorded runs (`neuronx_paper_grade_multiseed_holdout_v2.json`):
+- **60 recorded runs** total (3 models × 5 seeds × 4 template holdouts); **last-token pooling** selected in **60/60** runs.
+- **EleutherAI/gpt-j-6B:** test **AUROC = 0.9777 ± 0.0220**; permutation **p(AUC)** median **0.0073** [min 0.0020, max 0.0624]; selected layers **8–11** (median 10).
+- **facebook/opt-2.7b:** test **AUROC = 0.9788 ± 0.0177**; permutation **p(AUC)** median **0.0038** [min 0.0004, max 0.0116]; selected layers **19–21**.
+- **EleutherAI/gpt-neo-1.3B:** test **AUROC = 0.8303 ± 0.0593**; permutation **p(AUC)** median **0.0006** [min 0.0002, max 0.0032].
+- Holdout-template variability is reported in full in the tables.
 
-- **Test AUROC:** **0.9777 ± 0.0220** (mean ± SD)
-- **Permutation p(AUC):** median **0.0073** (min **0.0020**, max **0.0624**)
-- **Entity-paired accuracy:** **0.9800 ± 0.0225** (mean ± SD)
-- **Mean per-city delta (true − false):** **172.40 ± 66.26** (mean ± SD)
-- **Sign-flip p(Δ):** **0.0002** (with 5000 sign permutations)
-
-Layer selection behavior (same 20 runs):
-
-- **Selected layer range:** **8–11** (median **10**)
-- **Selected pooling:** **last-token** (all runs)
-- Layer selection counts: L8=1, L9=7, L10=8, L11=4
+Full tables: [`artifacts/RESULTS.md`](artifacts/RESULTS.md)
 
 ## Compute / Lab Environment (provenance)
 

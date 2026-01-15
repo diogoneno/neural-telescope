@@ -1,6 +1,6 @@
 # The Neural Telescope: Interferometric Control of Autonomous Agents
 
-> **Project Martian Candidate | 2026**  
+> 
 > Phase 1 (public): measurement + statistical validation • Phase 2 (under review): interlock control + low-latency bridge
 
 ## Overview
@@ -79,7 +79,7 @@ Source artifact: `artifacts/neuronx_paper_grade_multiseed_holdout_v2.json`.
 
 Full tables: [`artifacts/RESULTS.md`](artifacts/RESULTS.md)
 
-## Compute / Lab Environment (provenance)
+## Compute / Lab Environment 
 
 Primary local environment used during Phase-1 development:
 
@@ -95,7 +95,7 @@ Primary local environment used during Phase-1 development:
 | **Turing** | NVIDIA P100 | Telemetry Core | 12 vCPUs, 32GB RAM | Active (Debian 12.11) |
 | **Bengio** | NVIDIA K2200 | Experimental | 24 vCPUs, 48GB RAM | Active (Debian 12.11) |
 
-## Scope boundaries (important for reviewers)
+## Scope boundaries 
 
 Phase-1 claims focus on the **controlled benchmark** of true vs constructed-false capital statements under entity/template holdouts. It does **not** claim generalized “hallucination detection," “confidence estimation,” or a token-level lead-time window.
 
@@ -114,7 +114,7 @@ Restricted artifacts (Phase-2 due diligence):
 - bridge/control implementations and latency benchmarks,
 - extended evaluation suites and scaling runs.
 
-## References (external)
+## References 
 
 - WDQS documentation and SPARQL endpoint: https://www.wikidata.org/wiki/Wikidata:SPARQL_query_service
 - Wikidata Property P36 (capital): https://www.wikidata.org/wiki/Property:P36
